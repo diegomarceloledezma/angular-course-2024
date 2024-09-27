@@ -1,6 +1,10 @@
 <h1>Hello, {{ title + 10 }}</h1>
-<p>Add {{ sum(3,5) }}</p>
+<p>Add {{ sum(3, 5) }}</p>
 <!-- <p>Substract {{ substract(9,5) }}</p> -->
 <p>FOR {{ getArray() }}</p>
 
-<user-card [name] = "'Juan'" [email]="'juan@gmail.com'"></user-card>
+<user-card
+  [name]="'Juan'"
+  [email]="'juan@gmail.com'"
+  (sendData)="receiveData($event)"
+></user-card>

@@ -89,4 +89,8 @@ export class AppComponent {
   // }
 
   // const resta = (a) => ('hola' + a)
+
+  public receiveData(data:any){
+    console.log('Print in father component: ', data)
+  }
 }
