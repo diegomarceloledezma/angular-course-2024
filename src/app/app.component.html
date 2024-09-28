@@ -7,7 +7,10 @@
   [name]="'Juan'"
   [email]="'juan@gmail.com'"
   (sendData)="receiveData($event)"
-></user-card>
+>
+  <p>My HTML from father</p>
+  <button>My button from father</button>
+</user-card>
 
 <p>RESULT: {{ result }}</p>
 
@@ -18,3 +21,9 @@
 ></calculator>
 
 <history [history]="history"></history>
+
+<p *ngIf="1 === 1"> variables are equals </p>
+
+@if(1 === 1) {
+  <p> new Syntax, variables are equals </p>
+}
