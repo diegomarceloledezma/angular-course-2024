@@ -3,14 +3,19 @@
 <!-- <p>Substract {{ substract(9,5) }}</p> -->
 <!-- <p>FOR {{ getArray() }}</p> -->
 
-<user-card
-  [name]="'Juan'"
-  [email]="'juan@gmail.com'"
-  (sendData)="receiveData($event)"
->
-  <p>My HTML from father</p>
-  <button>My button from father</button>
-</user-card>
+<button (click)="userCardCreated = !userCardCreated">
+  create and destroy user card
+</button>
+
+@if(userCardCreated){
+  <user-card [name]="'juan'" [email]="'juan@gmail.com'" (sendData)="receiveData($event)">
+    <p>My HTML from Father</p>
+    <button>My Button from Father</button>
+  </user-card>
+
+} @else {
+  <p>user card destroyed</p>
+}
 
 <p>RESULT: {{ result }}</p>
 

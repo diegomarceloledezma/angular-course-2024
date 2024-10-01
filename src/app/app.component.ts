@@ -24,7 +24,12 @@ interface IPerson {
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
+
+
 export class AppComponent {
+
+  userCardCreated = true
+
   result: number = 0;
   history: { operation: string; result: number }[] = [];
   title: number = 10;
