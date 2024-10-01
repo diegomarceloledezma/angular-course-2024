@@ -24,11 +24,14 @@ interface IPerson {
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-
-
 export class AppComponent {
+  users = [
+    { name: 'abc', email: 'abc@gmail.com' },
+    { name: 'dfg', email: 'dfg@gmail.com' },
+  ];
+  selectedUser: any = this.users[0];
 
-  userCardCreated = true
+  userCardCreated = true;
 
   result: number = 0;
   history: { operation: string; result: number }[] = [];
