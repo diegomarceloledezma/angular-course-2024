@@ -5,7 +5,7 @@
 
   <input type="text" [(ngModel)]="password">  
 
-  <button (click)="onSendData()"> send Data</button>
+  <button #buttonTest (click)="onSendData()"> send Data</button>
 
   <p>PASSWORD = {{ password }}</p>
 
