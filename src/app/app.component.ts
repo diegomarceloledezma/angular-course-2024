@@ -4,6 +4,7 @@ import { UserCardComponent } from './user-card/user-card.component';
 import { CalculatorComponent } from './calculator/calculator.component';
 import { HistoryComponent } from './history/history.component';
 import { CommonModule } from '@angular/common';
+import { CounterComponent } from './counter/counter.component';
 
 interface IPerson {
   name: string;
@@ -20,6 +21,7 @@ interface IPerson {
     CalculatorComponent,
     HistoryComponent,
     CommonModule,
+    CounterComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
