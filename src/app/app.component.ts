@@ -5,6 +5,7 @@ import { CalculatorComponent } from './calculator/calculator.component';
 import { HistoryComponent } from './history/history.component';
 import { CommonModule } from '@angular/common';
 import { CounterComponent } from './counter/counter.component';
+import { PersonComponent } from './person/person.component';
 
 interface IPerson {
   name: string;
@@ -21,12 +22,33 @@ interface IPerson {
     CalculatorComponent,
     HistoryComponent,
     CommonModule,
-    CounterComponent
+    CounterComponent,
+    PersonComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
+
+  persons = [
+    { name: 'Maria', gender: 'female', age: 19 },
+    { name: 'Pedro', gender: 'male', age: 15 },
+    { name: 'Ana', gender: 'female', age: 20 }
+  ];
+
+  get totalFemale() {
+    return this.persons.filter(p => p.gender === 'female').length;
+  }
+
+  get totalMale() {
+    return this.persons.filter(p => p.gender === 'male').length;
+  }
+
+  removePersonWithDiscount(person: any) {
+    this.persons = this.persons.filter(p => p !== person);
+  }
+
+
   users = [
     { name: 'abc', email: 'abc@gmail.com' },
     { name: 'dfg', email: 'dfg@gmail.com' },

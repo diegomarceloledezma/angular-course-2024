@@ -11,13 +11,17 @@
 <button (click)="selectedUser = users[1]">change to user 1</button>
 
 @if(userCardCreated){
-  <user-card [name]="selectedUser.name" [email]="selectedUser.email" (sendData)="receiveData($event)">
-    <p>My HTML from Father</p>
-    <button>My Button from Father</button>
-  </user-card>
+<user-card
+  [name]="selectedUser.name"
+  [email]="selectedUser.email"
+  (sendData)="receiveData($event)"
+>
+  <p>My HTML from Father</p>
+  <button>My Button from Father</button>
+</user-card>
 
 } @else {
-  <p>user card destroyed</p>
+<p>user card destroyed</p>
 }
 
 <p>RESULT: {{ result }}</p>
@@ -43,30 +47,45 @@
 <p>new Syntax, variables are equals</p>
 } @else {
 <p>new Syntax, is false</p>
-} 
+}
 
 <p *ngFor="let item of ['a', 'b', 'c', 'd']; let i = index">
   old for, value: {{ item }}, index: {{ i }}
 </p>
 
 @for(item of ['a', 'b', 'c', 'd']; track item; let i=$index){
-  <p>New Syntax Student: {{ item }} at index {{ i }}</p>
+<p>New Syntax Student: {{ item }} at index {{ i }}</p>
 }
 
 <div [ngSwitch]="var1">
-  <p *ngSwitchCase="0"> var is 0 </p>
-  <p *ngSwitchCase="1"> var is 1 </p>
-  <p *ngSwitchDefault> default value</p>
+  <p *ngSwitchCase="0">var is 0</p>
+  <p *ngSwitchCase="1">var is 1</p>
+  <p *ngSwitchDefault>default value</p>
 </div>
 
-@switch(var1) {
-  @case(0) {<p>new syntax, var is 0</p>}
-  @case(1) {<p>new syntax, var is 1</p>}
-  @default {<p>new syntax, default</p>}
-}
-
+@switch(var1) { @case(0) {
+<p>new syntax, var is 0</p>
+} @case(1) {
+<p>new syntax, var is 1</p>
+} @default {
+<p>new syntax, default</p>
+} }
 
 <counter></counter>
 
 <button (click)="var1 = var1 + 1">Increment Var1</button>
 <p>{{ var1 }}</p>
+
+<!-- Lista de personas -->
+@for (person of persons; track person; let i = $index) {
+  <h2>{{ person.name }}</h2>
+  <person
+    [person]="person"
+    (deletePersonWithDiscount)="removePersonWithDiscount(person)"
+  ></person>
+}
+
+
+<!-- Mostrar totales de género -->
+<p>Total personas female: {{ totalFemale }}</p>
+<p>Total personas male: {{ totalMale }}</p>
