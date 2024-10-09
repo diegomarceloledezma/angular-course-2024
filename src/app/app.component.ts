@@ -5,13 +5,21 @@ import { CalculatorComponent } from './calculator/calculator.component';
 import { HistoryComponent } from './history/history.component';
 import { CommonModule } from '@angular/common';
 import { CounterComponent } from './counter/counter.component';
-import { PersonComponent } from './person/person.component';
+// import { PersonComponent } from './person/person.component';
+import { filter, from, map, tap } from 'rxjs';
 
 interface IPerson {
   name: string;
   lastName: string;
   age?: number;
 }
+
+// interface Person {
+//   name: string;
+//   gender: string;
+//   age: number;
+//   discount?: number;
+// }
 
 @Component({
   selector: 'app-root',
@@ -23,31 +31,47 @@ interface IPerson {
     HistoryComponent,
     CommonModule,
     CounterComponent,
-    PersonComponent
+    // PersonComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
+  // persons: Person[] = [
+  //   { name: 'Juan', gender: 'male', age: 20 },
+  //   { name: 'Ana', gender: 'female', age: 17 },
+  //   { name: 'Luis', gender: 'male', age: 30 },
+  //   { name: 'Maria', gender: 'female', age: 16 },
+  // ];
 
-  persons = [
-    { name: 'Maria', gender: 'female', age: 19 },
-    { name: 'Pedro', gender: 'male', age: 15 },
-    { name: 'Ana', gender: 'female', age: 20 }
-  ];
+  // maleCount = 0;
+  // femaleCount = 0;
+  // discountCount = 0;
 
-  get totalFemale() {
-    return this.persons.filter(p => p.gender === 'female').length;
-  }
+  // calculateGenderCount(): void {
+  //   this.maleCount = this.persons.filter(
+  //     (person) => person.gender === 'male'
+  //   ).length;
+  //   this.femaleCount = this.persons.filter(
+  //     (person) => person.gender === 'female'
+  //   ).length;
+  // }
 
-  get totalMale() {
-    return this.persons.filter(p => p.gender === 'male').length;
-  }
+  // validateDiscount(): void {
+  //   this.discountCount = 0;
 
-  removePersonWithDiscount(person: any) {
-    this.persons = this.persons.filter(p => p !== person);
-  }
+  //   this.persons.forEach((person) => {
+  //     if (person.age >= 18) {
+  //       this.discountCount++;
+  //     }
+  //   });
+  // }
 
+  // removeAllPersonsWithDiscount() {
+  //   this.persons = this.persons.filter((person) => person.age >= 18);
+  //   this.validateDiscount();
+  //   this.calculateGenderCount();
+  // }
 
   users = [
     { name: 'abc', email: 'abc@gmail.com' },
@@ -76,6 +100,8 @@ export class AppComponent {
   var2 = null;
   var3 = 'hola';
 
+  youtube = from([1, 2, 3, 4, 5, 6]);
+
   constructor() {
     const { name, age } = this.person;
     console.log('desestructuracion ', name, age);
@@ -93,6 +119,10 @@ export class AppComponent {
     // console.log('FIND: ', this.animals.find( (animal) => animal === 'd' ))
     // console.log('FILTER: ', this.animals.filter( (animal) => animal === 'e' ))
     // console.log('INDEXOF: ', this.animals.indexOf('c'))
+
+    this.youtube.subscribe((res) => {
+      console.log('YOUTUBE DATA: ', res);
+    });
   }
 
   public sum2(...persons: number[]) {
@@ -105,6 +135,25 @@ export class AppComponent {
 
   public sum(num1: number, num2: number): number {
     return num1 + num2;
+  }
+
+  addVideo() {
+    this.youtube
+      .pipe(
+        map((res: number) => {
+          console.log('MAP OPERATOR RXJS: ', res);
+          if (res % 2 === 0) {
+            return res;
+          } else {
+            return null
+          }
+        }),
+        tap((res) => {console.log('')}),
+        filter((res: number | null) => res !== null)
+      )
+      .subscribe((res) => {
+        console.log('SUBSCRIBER 2: ', res);
+      });
   }
 
   private substract(num1: number, num2: number): number {

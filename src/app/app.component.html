@@ -76,16 +76,26 @@
 <button (click)="var1 = var1 + 1">Increment Var1</button>
 <p>{{ var1 }}</p>
 
-<!-- Lista de personas -->
+<!-- <p>Total de mujeres: {{ femaleCount }}</p>
+<p>Total de hombres: {{ maleCount }}</p>
+
+<button (click)="removeAllPersonsWithDiscount()">
+  Eliminar personas con descuento
+</button>
+
+<p>Total de personas con descuento: {{ discountCount }}</p>
+
 @for (person of persons; track person; let i = $index) {
+<div class="person-card">
   <h2>{{ person.name }}</h2>
-  <person
-    [person]="person"
-    (deletePersonWithDiscount)="removePersonWithDiscount(person)"
-  ></person>
-}
+  <p>Género: {{ person.gender }}</p>
+  <p>Edad: {{ person.age }}</p>
+
+  @if(person.discount) {
+  <p>Descuento: {{ person.discount }}</p>
+  }
+</div>
+} -->
 
 
-<!-- Mostrar totales de género -->
-<p>Total personas female: {{ totalFemale }}</p>
-<p>Total personas male: {{ totalMale }}</p>
+<button (click)="addVideo()">add new video to youtube</button>
