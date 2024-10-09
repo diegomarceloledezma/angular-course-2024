@@ -5,7 +5,7 @@ import { CalculatorComponent } from './calculator/calculator.component';
 import { HistoryComponent } from './history/history.component';
 import { CommonModule } from '@angular/common';
 import { CounterComponent } from './counter/counter.component';
-// import { PersonComponent } from './person/person.component';
+import { PersonComponent } from './person/person.component';
 import { filter, from, map, tap } from 'rxjs';
 
 interface IPerson {
@@ -14,12 +14,12 @@ interface IPerson {
   age?: number;
 }
 
-// interface Person {
-//   name: string;
-//   gender: string;
-//   age: number;
-//   discount?: number;
-// }
+interface Person {
+  name: string;
+  gender: string;
+  age: number;
+  discount?: number;
+}
 
 @Component({
   selector: 'app-root',
@@ -31,47 +31,59 @@ interface IPerson {
     HistoryComponent,
     CommonModule,
     CounterComponent,
-    // PersonComponent,
+    PersonComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  // persons: Person[] = [
-  //   { name: 'Juan', gender: 'male', age: 20 },
-  //   { name: 'Ana', gender: 'female', age: 17 },
-  //   { name: 'Luis', gender: 'male', age: 30 },
-  //   { name: 'Maria', gender: 'female', age: 16 },
-  // ];
+  persons: Person[] = [
+    { name: 'Juan', gender: 'male', age: 20 },
+    { name: 'Ana', gender: 'female', age: 17 },
+    { name: 'Luis', gender: 'male', age: 30 },
+    { name: 'Maria', gender: 'female', age: 16 },
+    { name: 'Diego', gender: 'female', age: 12 },
+    { name: 'Pipo', gender: 'male', age: 34 },
+    { name: 'Leon', gender: 'female', age: 80 },
+  ];
 
-  // maleCount = 0;
-  // femaleCount = 0;
-  // discountCount = 0;
+  maleCount = 0;
+  femaleCount = 0;
+  discountCount = 0;
 
-  // calculateGenderCount(): void {
-  //   this.maleCount = this.persons.filter(
-  //     (person) => person.gender === 'male'
-  //   ).length;
-  //   this.femaleCount = this.persons.filter(
-  //     (person) => person.gender === 'female'
-  //   ).length;
-  // }
+  ngOnInit(): void {
+    this.calculateGenderCount();
+    this.validateDiscount();
+  }
 
-  // validateDiscount(): void {
-  //   this.discountCount = 0;
+  calculateGenderCount(): void {
+    this.maleCount = 0;
+    this.femaleCount = 0;
 
-  //   this.persons.forEach((person) => {
-  //     if (person.age >= 18) {
-  //       this.discountCount++;
-  //     }
-  //   });
-  // }
+    this.persons.forEach((person) => {
+      if (person.gender === 'male') {
+        this.maleCount++; 
+      } else if (person.gender === 'female') {
+        this.femaleCount++;
+      }
+    });
+  }
 
-  // removeAllPersonsWithDiscount() {
-  //   this.persons = this.persons.filter((person) => person.age >= 18);
-  //   this.validateDiscount();
-  //   this.calculateGenderCount();
-  // }
+  validateDiscount(): void {
+    this.discountCount = 0;
+
+    this.persons.forEach((person) => {
+      if (person.age >= 18) {
+        this.discountCount++;
+      }
+    });
+  }
+
+  removeAllPersonsWithDiscount() {
+    this.persons = this.persons.filter((person) => person.age < 18);
+    this.validateDiscount();
+    this.calculateGenderCount();
+  }
 
   users = [
     { name: 'abc', email: 'abc@gmail.com' },

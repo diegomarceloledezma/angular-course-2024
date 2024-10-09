@@ -1,8 +1,25 @@
-// .person-card {
-//     border: 1px solid #ccc;
-//     padding: 10px;
-//     margin-bottom: 10px;
-//     border-radius: 5px;
-//     background-color: #f9f9f9;
-//   }
+.person-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+
+  justify-content: space-between;
+  padding: 20px;
   
+  position: relative;
+
+  width: 400px;
+}
+
+.discount-label {
+  background-color: red;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
