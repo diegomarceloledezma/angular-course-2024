@@ -1,0 +1,16 @@
+<div
+  class="item"
+  [ngClass]="{
+    student: person.type === 'student',
+    professor: person.type === 'professor'
+  }"
+>
+  <span
+    >{{ person.name }} {{ person.lastName }} -
+    {{ person.type }}</span
+  >
+  <div class="buttons">
+    <button class="show">Show</button>
+    <button class="delete" (click)="deletePerson(person.id)">Delete</button>
+  </div>
+</div>
