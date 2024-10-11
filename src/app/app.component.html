@@ -97,3 +97,13 @@
 }
 
 <button (click)="addVideo()">add new video to youtube</button>
+
+<div
+  [ngColors]="'green'"
+  [defaultColor]="'pink'"
+  (colorClick)="getColor($event)"
+  (colorDoubleClick)="getColor($event)"
+  style="border: 1px solid orange"
+>
+  MY CUSTOM ATRIBUTE DIRECTIVE
+</div>

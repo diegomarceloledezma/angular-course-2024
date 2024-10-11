@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { CounterComponent } from './counter/counter.component';
 import { PersonComponent } from './person/person.component';
 import { filter, from, map, tap } from 'rxjs';
+import { AppColorsDirective } from './app-colors.directive';
 
 interface IPerson {
   name: string;
@@ -32,6 +33,7 @@ interface Person {
     CommonModule,
     CounterComponent,
     PersonComponent,
+    AppColorsDirective,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -207,5 +209,9 @@ export class AppComponent {
 
   public onReset(): void {
     this.result = 0;
+  }
+
+  public getColor(value:string): void {
+    console.log('value: ', value)
   }
 }
