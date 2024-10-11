@@ -8,6 +8,7 @@ import { CounterComponent } from './counter/counter.component';
 import { PersonComponent } from './person/person.component';
 import { filter, from, map, tap } from 'rxjs';
 import { AppColorsDirective } from './app-colors.directive';
+import { CreateHtmlDirective } from './create-html.directive';
 
 interface IPerson {
   name: string;
@@ -34,6 +35,7 @@ interface Person {
     CounterComponent,
     PersonComponent,
     AppColorsDirective,
+    CreateHtmlDirective
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -93,7 +95,7 @@ export class AppComponent {
   ];
   selectedUser: any = this.users[0];
 
-  userCardCreated = true;
+  userCardCreated: boolean = true;
 
   result: number = 0;
   history: { operation: string; result: number }[] = [];
@@ -211,7 +213,7 @@ export class AppComponent {
     this.result = 0;
   }
 
-  public getColor(value:string): void {
+  public getColor(value:any): void {
     console.log('value: ', value)
   }
 }
