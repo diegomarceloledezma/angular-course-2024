@@ -4,14 +4,20 @@
   align-items: center;
   padding: 10px;
   border-radius: 8px;
+  margin-bottom: 5px;
+  font-size: 20px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 
   &.student {
-    background-color: #e0f7fa; /* Azul claro */
+    background-color: cyan;
   }
 
   &.professor {
-    background-color: #ffe0b2; /* Naranja claro */
+    background-color: orange;
+  }
+
+  &.message {
+    background-color: white;
   }
 
   .buttons {

@@ -18,7 +18,7 @@ import { data } from './data';
     ListComponent,
     CardComponent,
     CommonModule,
-    FormsModule
+    FormsModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -27,14 +27,9 @@ export class AppComponent {
   title = 'angular-course-2024';
 
   people = data;
+  selectedPerson: any = null;
 
-  filteredPeople = [...this.people];
-
-  onSearch(searchText: string) {
-    this.filteredPeople = this.people.filter(person =>
-      person.name.toLowerCase().includes(searchText.toLowerCase()) ||
-      person.lastName.toLowerCase().includes(searchText.toLowerCase()) ||
-      person.type.toLowerCase().includes(searchText.toLowerCase())
-    );
+  selectPerson(person: any) {
+    this.selectedPerson = person;
   }
 }

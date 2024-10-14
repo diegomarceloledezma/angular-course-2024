@@ -2,15 +2,29 @@
   class="item"
   [ngClass]="{
     student: person.type === 'student',
-    professor: person.type === 'professor'
+    professor: person.type === 'professor',
+    message: person.type === 'message'
   }"
 >
-  <span
-    >{{ person.name }} {{ person.lastName }} -
-    {{ person.type }}</span
+  <span *ngIf="person.type !== 'message'"
+    >{{ person.name }} {{ person.lastName }} - {{ person.type }}</span
   >
+  <span *ngIf="person.type === 'message'">{{ person.name }}</span>
+
   <div class="buttons">
-    <button class="show">Show</button>
-    <button class="delete" (click)="deletePerson(person.id)">Delete</button>
+    <button
+      *ngIf="person.type !== 'message'"
+      class="show"
+      (click)="showPerson()"
+    >
+      Show
+    </button>
+    <button
+      *ngIf="person.type !== 'message'"
+      class="delete"
+      (click)="deletePerson(person.id)"
+    >
+      Delete
+    </button>
   </div>
 </div>

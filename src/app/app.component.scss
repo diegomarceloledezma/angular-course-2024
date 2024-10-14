@@ -1,9 +1,14 @@
-.search-component {
-  margin-bottom: 20px;
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 .list-component {
   margin-top: 20px;
-  width: 33%;
-  display: inline-block;
+  width: 25%;
+}
+
+.card-component {
+  width: 70%;
 }

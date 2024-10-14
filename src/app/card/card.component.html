@@ -1,1 +1,43 @@
-<p>card works!</p>
+<div class="buttons">
+  <button (click)="showSection('personal')">Personal</button>
+  <button (click)="showSection('geographic')">Geographic</button>
+  <button (click)="showSection('messages')">Messages</button>
+</div>
+
+<div
+  *ngIf="selectedPerson"
+  class="card"
+  [ngClass]="[
+    getCardClass(),
+    currentSection === 'messages' ? 'messages-active' : ''
+  ]"
+>
+  <h2>{{ selectedPerson.name }} {{ selectedPerson.lastName }}</h2>
+
+  <div *ngIf="currentSection === 'personal'">
+    <p>Name: {{ selectedPerson.name }}</p>
+    <p>LastName: {{ selectedPerson.lastName }}</p>
+    <p>Type: {{ selectedPerson.type }}</p>
+    <p *ngIf="selectedPerson.type === 'student'">Score: {{ getScore() }}</p>
+    <p *ngIf="selectedPerson.type === 'professor'">
+      Subject: {{ selectedPerson.subject }}
+    </p>
+  </div>
+
+  <div *ngIf="currentSection === 'geographic'">
+    <p>
+      Address: {{ selectedPerson.address.number }}
+      {{ selectedPerson.address.street }}, {{ selectedPerson.address.zone }}
+    </p>
+    <p>Country: {{ selectedPerson.country }}</p>
+    <p>Province: {{ selectedPerson.province }}</p>
+  </div>
+
+  <div *ngIf="currentSection === 'messages'">
+    <search (searchEvent)="filterMessages($event)"></search>
+
+    <div *ngFor="let message of filteredMessages">
+      <item [person]="{ name: message, type: 'message' }"></item>
+    </div>
+  </div>
+</div>
