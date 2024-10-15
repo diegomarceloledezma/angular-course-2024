@@ -9,6 +9,9 @@ import { PersonComponent } from './person/person.component';
 import { filter, from, map, tap } from 'rxjs';
 import { AppColorsDirective } from './app-colors.directive';
 import { CreateHtmlDirective } from './create-html.directive';
+import {MatCardModule} from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+
 
 interface IPerson {
   name: string;
@@ -35,7 +38,9 @@ interface Person {
     CounterComponent,
     PersonComponent,
     AppColorsDirective,
-    CreateHtmlDirective
+    CreateHtmlDirective,
+    MatCardModule,
+    MatButtonModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
