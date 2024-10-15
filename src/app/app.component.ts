@@ -9,9 +9,10 @@ import { PersonComponent } from './person/person.component';
 import { filter, from, map, tap } from 'rxjs';
 import { AppColorsDirective } from './app-colors.directive';
 import { CreateHtmlDirective } from './create-html.directive';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-
+import { PurePipe } from './pure.pipe';
+import { ImpurePipe } from './impure.pipe';
 
 interface IPerson {
   name: string;
@@ -41,6 +42,9 @@ interface Person {
     CreateHtmlDirective,
     MatCardModule,
     MatButtonModule,
+    CreateHtmlDirective,
+    PurePipe,
+    ImpurePipe,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -71,7 +75,7 @@ export class AppComponent {
 
     this.persons.forEach((person) => {
       if (person.gender === 'male') {
-        this.maleCount++; 
+        this.maleCount++;
       } else if (person.gender === 'female') {
         this.femaleCount++;
       }
@@ -114,7 +118,7 @@ export class AppComponent {
   };
 
   //spread operator
-  students: number[] = [1, 2, 3, 4, 5, 6];
+  students: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   parents: number[] = [7, 8, 9, 10];
 
   var1 = 0;
@@ -146,6 +150,13 @@ export class AppComponent {
     });
   }
 
+  public sumPure(a: number, b: number): number {
+    return a + b;
+  }
+  public sumImpure(a: number, b: number): number {
+    return a + b + Math.random();
+  }
+
   public sum2(...persons: number[]) {
     //return persons[0] + persons[1]
     return persons.reduce(
@@ -166,10 +177,12 @@ export class AppComponent {
           if (res % 2 === 0) {
             return res;
           } else {
-            return null
+            return null;
           }
         }),
-        tap((res) => {console.log('')}),
+        tap((res) => {
+          console.log('');
+        }),
         filter((res: number | null) => res !== null)
       )
       .subscribe((res) => {
@@ -218,7 +231,11 @@ export class AppComponent {
     this.result = 0;
   }
 
-  public getColor(value:any): void {
-    console.log('value: ', value)
+  public getColor(value: any): void {
+    console.log('value: ', value);
+  }
+
+  public addNumber() {
+    this.students = [...this.students, 12];
   }
 }
