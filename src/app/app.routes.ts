@@ -16,4 +16,9 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./counter/counter.component').then((c) => c.CounterComponent),
   },
+  {
+    path: 'student',
+    loadChildren: () =>
+      import('./student/student.module').then((m) => m.StudentModule),
+  },
 ];
