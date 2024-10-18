@@ -4,8 +4,9 @@ import { CalculatorComponent } from './calculator/calculator.component';
 
 export const routes: Routes = [
   {
-    path: 'card',
+    path: 'card/:studentId',
     component: UserCardComponent,
+    title: 'user card test title'
   },
   {
     path: 'cal',
