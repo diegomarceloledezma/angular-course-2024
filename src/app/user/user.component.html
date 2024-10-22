@@ -1,0 +1,51 @@
+<div *ngIf="user.status === 'active'; else inactiveBlock">
+  <div>
+    <p>Name: {{ user.name }}</p>
+    <p>Age: {{ user.age }}</p>
+    <p>Status: {{ user.status }}</p>
+    <p>
+      Subscription type:
+      <button
+        [ngClass]="{ active: user.subscriptionType === 'free' }"
+        (click)="toggleSubscriptionType('free')"
+      >
+        Free
+      </button>
+      <button
+        [ngClass]="{ active: user.subscriptionType === 'premium' }"
+        (click)="toggleSubscriptionType('premium')"
+      >
+        Premium
+      </button>
+    </p>
+    <p>Amount available: {{ user.amountAvailable }}$</p>
+  </div>
+
+  <div>
+    <h4>Social Networks</h4>
+    <ng-container *ngFor="let network of socialNetworks">
+      <div *ngIf="!isSubscribed(network.id)">
+        <div class="network-card">
+          <span>{{ network.platform }}</span>
+          <button (click)="subscribeToNetwork(network.id)">+</button>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <div>
+    <h4>Subscriptions</h4>
+    <div *ngFor="let subscription of user.subscriptions">
+      <div class="subscription-card">
+        {{ getPlatformNameById(subscription) }}
+        <button (click)="removeSubscription(subscription)">X</button>
+      </div>
+    </div>
+  </div>
+
+  <button (click)="closeAccount()">Close account</button>
+</div>
+
+<ng-template #inactiveBlock>
+  <p>User is inactive</p>
+</ng-template>

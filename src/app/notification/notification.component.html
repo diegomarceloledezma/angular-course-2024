@@ -1,0 +1,13 @@
+<div *ngIf="user.status === 'active'">
+  <div>
+    <h4>Notifications ({{ user.notifications.length }})</h4>
+    <div *ngFor="let notification of notifications$ | async">
+      <div class="notification-card">
+        {{ notification }}
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #inactiveBlock>
+  <p>User is inactive, no notifications</p>
+</ng-template>
