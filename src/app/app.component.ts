@@ -16,7 +16,7 @@ export class AppComponent {
   title = 'angular-course-2024';
 
   socialNetworks = socialNetworks;
-  user = data[0];
+  users = data;
   activeTab = 'user';
 
   getPlatformColor(platform: string): string {

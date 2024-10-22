@@ -15,6 +15,7 @@ export class UserComponent {
 
   socialNetworks = socialNetworks;
   subscriptions$: BehaviorSubject<number[]>;
+  isAccountClosed = false;
 
   constructor() {
     this.subscriptions$ = new BehaviorSubject<number[]>([]);
@@ -24,18 +25,15 @@ export class UserComponent {
     this.subscriptions$.next(this.user.subscriptions);
   }
 
-  // Cambiar tipo de suscripción
   toggleSubscriptionType(type: string) {
     this.user.subscriptionType = type;
   }
 
-  // Agregar suscripción
   subscribeToNetwork(networkId: number) {
     this.user.subscriptions.push(networkId);
     this.subscriptions$.next(this.user.subscriptions);
   }
 
-  // Eliminar suscripción
   unsubscribeFromNetwork(networkId: number) {
     this.user.subscriptions = this.user.subscriptions.filter(
       (id: number) => id !== networkId
@@ -43,12 +41,11 @@ export class UserComponent {
     this.subscriptions$.next(this.user.subscriptions);
   }
 
-  // Cerrar cuenta
   closeAccount() {
     this.user.status = 'inactive';
+    this.isAccountClosed = true;
   }
 
-  // Función para verificar si una red social está suscrita
   isSubscribed(networkId: number): boolean {
     return this.user.subscriptions.includes(networkId);
   }

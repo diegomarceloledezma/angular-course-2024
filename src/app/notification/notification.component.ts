@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { socialNetworks, data } from '../data';
 
@@ -8,21 +8,22 @@ import { socialNetworks, data } from '../data';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './notification.component.html',
-  styleUrl: './notification.component.scss',
+  styleUrls: ['./notification.component.scss'], // Corregido 'styleUrls'
 })
-export class NotificationsComponent {
-  @Input() user: any;
+export class NotificationsComponent implements OnChanges {
+  @Input() user: any; // Asegúrate de que user esté correctamente tipeado si es posible
 
-  notifications$: BehaviorSubject<string[]>;
+  notifications$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
 
-  constructor() {
-    this.notifications$ = new BehaviorSubject<string[]>(
-      this.user.notifications
-    );
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['user'] && changes['user'].currentValue) {
+      // Actualiza las notificaciones cuando el input 'user' cambie
+      this.notifications$.next(this.user.notifications);
+    }
   }
 
   addNotification(network: any) {
-    // Verificar si el usuario es premium para tiktok o whatsapp
+    // Verifica si el usuario puede agregar notificaciones para ciertas plataformas
     if (
       (network.platform === 'tiktok' || network.platform === 'whatsapp') &&
       this.user.subscriptionType !== 'premium'
@@ -30,7 +31,7 @@ export class NotificationsComponent {
       return;
     }
 
-    // Descontar $5 si es premium y recibe notificación de tiktok o whatsapp
+    // Ajusta el 'amountAvailable' si el usuario es premium y se utiliza alguna de estas plataformas
     if (
       this.user.subscriptionType === 'premium' &&
       (network.platform === 'tiktok' || network.platform === 'whatsapp')
@@ -38,7 +39,7 @@ export class NotificationsComponent {
       this.user.amountAvailable -= 5;
     }
 
-    // Agregar la notificación
+    // Crea y agrega la nueva notificación
     const newNotification = `${network.platform} added a new ${network.type}`;
     this.user.notifications.push(newNotification);
     this.notifications$.next(this.user.notifications);

@@ -1,19 +1,30 @@
 <div class="platforms-container">
-  <div *ngFor="let platform of socialNetworks" 
-       class="platform-card" 
-       [ngStyle]="{'background-color': getPlatformColor(platform.platform)}">
-    <button>{{ 'add new ' + platform.type }}</button>
+  <div
+    *ngFor="let platform of socialNetworks"
+    class="platform-card"
+    [ngStyle]="{ 'background-color': getPlatformColor(platform.platform) }"
+  >
+    <button>{{ "add new " + platform.type }}</button>
     <div class="platform-details">
       <span>{{ platform.platform }}</span>
-      <span *ngIf="platform.platformType === 'premium'" class="premium-star">⭐</span>
+      <span *ngIf="platform.platformType === 'premium'" class="premium-star"
+        >⭐</span
+      >
     </div>
   </div>
 </div>
 
 <div class="tabs">
-  <button (click)="activeTab = 'user'">User</button>
-  <button (click)="activeTab = 'notifications'">Notifications ({{ user.notifications.length }})</button>
+  <button (click)="activeTab = 'user'">Users</button>
+  <button (click)="activeTab = 'notifications'">
+    Notifications
+  </button>
 </div>
 
-<app-user *ngIf="activeTab === 'user'" [user]="user"></app-user>
-<app-notification *ngIf="activeTab === 'notifications'" [user]="user"></app-notification>
+<div *ngIf="activeTab === 'user'">
+  <app-user *ngFor="let user of users" [user]="user"></app-user>
+</div>
+
+<div *ngIf="activeTab === 'notifications'">
+  <app-notification *ngFor="let user of users" [user]="user"></app-notification>
+</div>
