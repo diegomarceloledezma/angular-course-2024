@@ -13,6 +13,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { PurePipe } from './pure.pipe';
 import { ImpurePipe } from './impure.pipe';
+import { FormsModule } from '@angular/forms';
 
 interface IPerson {
   name: string;
@@ -46,11 +47,17 @@ interface Person {
     PurePipe,
     ImpurePipe,
     RouterLink,
+    FormsModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
+
+  name:string='testname'
+  lastname:string=''
+
+
   persons: Person[] = [
     { name: 'Juan', gender: 'male', age: 20 },
     { name: 'Ana', gender: 'female', age: 17 },
@@ -250,5 +257,9 @@ export class AppComponent {
 
   public onCalculator(){
     this.router.navigate(['cal'], {queryParams: {name: 'Jhon', age: 20}})
+  }
+
+  onSubmit(data: any){
+    console.log('TEMPLATE DRIVEN FORM', data)
   }
 }
