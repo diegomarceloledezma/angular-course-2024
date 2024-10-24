@@ -147,20 +147,37 @@
   <mat-card-content>
     <form #testForm="ngForm" (ngSubmit)="onSubmit(testForm)">
       <p>name</p>
-      <input type="text" ngModel name="nameF"/>
+      <input type="text" ngModel name="nameF" />
       <p>lastname</p>
-      <input type="text" ngModel name="lastNameF"/>
+      <input type="text" ngModel name="lastNameF" />
       <p>age</p>
-      <input type="text" ngModel name="ageF"/>
+      <input type="text" ngModel name="ageF" />
       <p>city</p>
       <input type="text" ngModel name="cityF" />
       <p>phone</p>
-      <input type="text" ngModel name="phoneF"/>
+      <input type="text" ngModel name="phoneF" />
       <button type="submit">send data</button>
 
       <p>REACTIVE FORM</p>
-      <input type="text" [formControl]="scoreControl">
+      <input type="text" [formControl]="scoreControl" />
       <button (click)="onPrintScore()">print score</button>
+
+      <p>FORM GROUP</p>
+      <form [formGroup]="studentForm">
+        <p>name</p>
+        <input type="text" [formControlName]="'name'" />
+        <p>score</p>
+        <input type="text" [formControlName]="'score'" />
+        <p>school</p>
+        <input type="text" [formControlName]="'school'" />
+        <p>professor</p>
+        <input type="text" [formControlName]="'professor'" />
+        <p>university</p>
+        <input type="text" [formControlName]="'university'" />
+      </form>
+      <button (click)="onSendData()" [disabled]="studentForm.invalid">
+        send data
+      </button>
     </form>
   </mat-card-content>
   <mat-card-actions>
