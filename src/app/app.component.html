@@ -147,7 +147,11 @@
   <mat-card-content>
     <form #testForm="ngForm" (ngSubmit)="onSubmit(testForm)">
       <p>name</p>
-      <input type="text" ngModel name="nameF" />
+      <input type="text" #nameT="ngModel" name="nameF" ngModel required />
+      <div *ngIf="nameT.invalid && nameT.touched" style="color: red">THERE IS AN ERROR</div>
+      <p>{{ nameT.invalid | json}}</p>
+      <p>{{ nameT.touched | json}}</p>
+
       <p>lastname</p>
       <input type="text" ngModel name="lastNameF" />
       <p>age</p>
@@ -157,28 +161,35 @@
       <p>phone</p>
       <input type="text" ngModel name="phoneF" />
       <button type="submit">send data</button>
-
-      <p>REACTIVE FORM</p>
-      <input type="text" [formControl]="scoreControl" />
-      <button (click)="onPrintScore()">print score</button>
-
-      <p>FORM GROUP</p>
-      <form [formGroup]="studentForm">
-        <p>name</p>
-        <input type="text" [formControlName]="'name'" />
-        <p>score</p>
-        <input type="text" [formControlName]="'score'" />
-        <p>school</p>
-        <input type="text" [formControlName]="'school'" />
-        <p>professor</p>
-        <input type="text" [formControlName]="'professor'" />
-        <p>university</p>
-        <input type="text" [formControlName]="'university'" />
-      </form>
-      <button (click)="onSendData()" [disabled]="studentForm.invalid">
-        send data
-      </button>
     </form>
+
+    <p>REACTIVE FORM</p>
+    <input type="text" [formControl]="scoreControl" />
+    <button (click)="onPrintScore()">print score</button>
+
+    <p>FORM GROUP</p>
+    <form [formGroup]="studentForm">
+      <p>name</p>
+      <input type="text" [formControlName]="'name'" />
+      <!-- <div *ngIf="studentForm && studentForm.get('name').errors['required']">
+        name is required
+      </div> -->
+      <div *ngIf="studentForm.get('name')?.invalid && studentForm.get('name')?.touched">
+        name is required
+      </div>
+      <button (click)="print()">print name control</button>
+      <p>score</p>
+      <input type="text" [formControlName]="'score'" />
+      <p>school</p>
+      <input type="text" [formControlName]="'school'" />
+      <p>professor</p>
+      <input type="text" [formControlName]="'professor'" />
+      <p>university</p>
+      <input type="text" [formControlName]="'university'" />
+    </form>
+    <button (click)="onSendData()" [disabled]="studentForm.invalid">
+      send data
+    </button>
   </mat-card-content>
   <mat-card-actions>
     <button mat-button>LIKE</button>

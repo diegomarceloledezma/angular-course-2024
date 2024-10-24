@@ -310,4 +310,8 @@ export class AppComponent {
   onPrintScore() {
     console.log('SCORE: ', this.scoreControl.value);
   }
+
+  print(){
+    console.log('FORM NAME: ', this.studentForm.get('name'))
+  }
 }
