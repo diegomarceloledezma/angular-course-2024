@@ -13,7 +13,15 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { PurePipe } from './pure.pipe';
 import { ImpurePipe } from './impure.pipe';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+  Validators,
+} from '@angular/forms';
 
 interface IPerson {
   name: string;
@@ -54,14 +62,13 @@ interface Person {
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
+  scoreControl = new FormControl<string>('', [Validators.required]);
 
-  scoreControl = new FormControl<string>('', [Validators.required])
+  studentForm!: FormGroup;
+  student2Form!: UntypedFormBuilder;
 
-  studentForm!: FormGroup
-
-  name:string='testname'
-  lastname:string=''
-
+  name: string = 'testname';
+  lastname: string = '';
 
   persons: Person[] = [
     { name: 'Juan', gender: 'male', age: 20 },
@@ -140,7 +147,11 @@ export class AppComponent {
 
   youtube = from([1, 2, 3, 4, 5, 6]);
 
-  constructor(private router: Router, private formBuilder: FormBuilder) {
+  constructor(
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private untypedFormBuilder: UntypedFormBuilder
+  ) {
     const { name, age } = this.person;
     console.log('desestructuracion ', name, age);
     let both = [...this.students, ...this.parents];
@@ -162,9 +173,17 @@ export class AppComponent {
       console.log('YOUTUBE DATA: ', res);
     });
 
-    this.scoreControl.valueChanges.subscribe((res)=>{
-      console.log('SCORE VALUE OBSERVABLE: ', res)
-    })
+    this.scoreControl.valueChanges.subscribe((res) => {
+      console.log('SCORE VALUE OBSERVABLE: ', res);
+    });
+
+    // this.student2Form = this.untypedFormBuilder.group({
+    //   name: ['', Validators.required],
+    //   score: [''],
+    //   school: [''],
+    //   professor: [''],
+    //   university: [''],
+    // })
 
     this.studentForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -172,15 +191,15 @@ export class AppComponent {
       school: [''],
       professor: [''],
       university: [''],
-    })
+    });
 
-    this.studentForm.valueChanges.subscribe((res)=>{
-      console.log('FORM GROUP OBSERVABLE: ', res)
-    })
+    this.studentForm.valueChanges.subscribe((res) => {
+      console.log('FORM GROUP OBSERVABLE: ', res);
+    });
   }
 
-  onSendData(){
-    console.log('FORM GROUP: ', this.studentForm)
+  onSendData() {
+    console.log('FORM GROUP: ', this.studentForm);
   }
 
   public sumPure(a: number, b: number): number {
@@ -273,22 +292,22 @@ export class AppComponent {
   }
 
   public goToStudentModule() {
-    this.router.navigate(['student'])
+    this.router.navigate(['student']);
   }
 
   public goToCard() {
-    this.router.navigate(['card', 1])
+    this.router.navigate(['card', 1]);
   }
 
-  public onCalculator(){
-    this.router.navigate(['cal'], {queryParams: {name: 'Jhon', age: 20}})
+  public onCalculator() {
+    this.router.navigate(['cal'], { queryParams: { name: 'Jhon', age: 20 } });
   }
 
-  onSubmit(data: any){
-    console.log('TEMPLATE DRIVEN FORM', data)
+  onSubmit(data: any) {
+    console.log('TEMPLATE DRIVEN FORM', data);
   }
 
-  onPrintScore(){
-    console.log('SCORE: ', this.scoreControl.value)
+  onPrintScore() {
+    console.log('SCORE: ', this.scoreControl.value);
   }
 }
