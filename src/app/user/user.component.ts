@@ -53,6 +53,7 @@ export class UserComponent {
   getPlatformNameById(subscriptionId: number): string {
     const network = socialNetworks.find((n) => n.id === subscriptionId);
     return network ? network.platform : 'Unknown platform';
+    
   }
 
   removeSubscription(subscriptionId: number) {
