@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'app-average',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AverageComponent {
 
+  constructor(private _authService: AuthService){ }
+
+    onPrint() {
+      console.log('LOOGED USER: ', this._authService.getUser())
+    }
+    
 }

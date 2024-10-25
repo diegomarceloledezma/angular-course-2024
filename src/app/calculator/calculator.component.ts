@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'calculator',
@@ -15,6 +16,7 @@ import { ActivatedRoute } from '@angular/router';
       <button class="sum" (click)="onSum()">Sum</button>
       <button class="mul" (click)="onMul()">Mul</button>
       <button class="reset" (click)="onReset()">Reset</button>
+      <button class="reset" (click)="onLogin()">Login</button>
     </div>
     <!-- <p>box1Value: {{ box1Value }}</p>
     <p>box2Value: {{ box2Value }}</p> -->
@@ -30,7 +32,7 @@ export class CalculatorComponent implements OnInit {
   @Output() mul = new EventEmitter();
   @Output() reset = new EventEmitter();
 
-  constructor(private _activatedRoute: ActivatedRoute){
+  constructor(private _activatedRoute: ActivatedRoute, private _authService: AuthService){
 
   }
 
@@ -60,5 +62,9 @@ export class CalculatorComponent implements OnInit {
     this.box1Value = 0;
     this.box2Value = 0;
     this.reset.emit({ operation: 'Reset', result: null });
+  }
+
+  onLogin(){
+    this._authService.login()
   }
 }
