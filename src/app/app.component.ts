@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { UserCardComponent } from './user-card/user-card.component';
@@ -22,6 +23,7 @@ import {
   UntypedFormBuilder,
   Validators,
 } from '@angular/forms';
+import { StudentService } from './services/student.service';
 
 interface IPerson {
   name: string;
@@ -148,10 +150,15 @@ export class AppComponent {
   youtube = from([1, 2, 3, 4, 5, 6]);
 
   constructor(
+    private _studentService: StudentService,
     private router: Router,
     private formBuilder: FormBuilder,
     private untypedFormBuilder: UntypedFormBuilder
   ) {
+    this._studentService.getStudents().subscribe((res) => {
+      console.log('STUDENTS JSON: ', res);
+    });
+
     const { name, age } = this.person;
     console.log('desestructuracion ', name, age);
     let both = [...this.students, ...this.parents];
@@ -311,7 +318,7 @@ export class AppComponent {
     console.log('SCORE: ', this.scoreControl.value);
   }
 
-  print(){
-    console.log('FORM NAME: ', this.studentForm.get('name'))
+  print() {
+    console.log('FORM NAME: ', this.studentForm.get('name'));
   }
 }
