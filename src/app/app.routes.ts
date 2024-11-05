@@ -4,17 +4,23 @@ import { CalculatorComponent } from './calculator/calculator.component';
 import { AuthGuard } from './guards/auth.guard';
 import { guardForm } from './guards/guard-form.guard';
 import { LoadGuard } from './guards/load.guard';
+import { LoginComponent } from './login/login.component';
 
 export const routes: Routes = [
   {
+    path: '',
+    component: LoginComponent,
+    title: 'Login',
+  },
+  {
     path: 'card/:studentId',
     component: UserCardComponent,
-    title: 'user card test title'
+    title: 'user card test title',
   },
   {
     path: 'cal',
     component: CalculatorComponent,
-    canDeactivate: [guardForm]
+    canDeactivate: [guardForm],
   },
   {
     path: 'counter-nav',
@@ -25,7 +31,7 @@ export const routes: Routes = [
     path: 'student',
     title: 'student',
     canActivate: [AuthGuard],
-    canMatch:[LoadGuard],
+    canMatch: [LoadGuard],
     loadChildren: () =>
       import('./student/student.module').then((m) => m.StudentModule),
   },

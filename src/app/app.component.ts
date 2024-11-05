@@ -14,6 +14,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { PurePipe } from './pure.pipe';
 import { ImpurePipe } from './impure.pipe';
+import { AuthService } from "./auth.service";
 import {
   FormBuilder,
   FormControl,
@@ -150,6 +151,7 @@ export class AppComponent {
   youtube = from([1, 2, 3, 4, 5, 6]);
 
   constructor(
+    private _authService: AuthService,
     private _studentService: StudentService,
     private router: Router,
     private formBuilder: FormBuilder,
@@ -179,6 +181,7 @@ export class AppComponent {
     this.youtube.subscribe((res) => {
       console.log('YOUTUBE DATA: ', res);
     });
+    
 
     this.scoreControl.valueChanges.subscribe((res) => {
       console.log('SCORE VALUE OBSERVABLE: ', res);
@@ -204,6 +207,7 @@ export class AppComponent {
       console.log('FORM GROUP OBSERVABLE: ', res);
     });
   }
+
 
   onSendData() {
     console.log('FORM GROUP: ', this.studentForm);
@@ -320,5 +324,10 @@ export class AppComponent {
 
   print() {
     console.log('FORM NAME: ', this.studentForm.get('name'));
+  }
+
+  onLogin(){
+    this._authService.login()
+    this.router.navigate(['student'])
   }
 }
