@@ -48,4 +48,21 @@ export class AppComponent implements OnInit {
     }
   }
 
+  deleteCity(cityName: string): void {
+    this.cityService.deleteCity(cityName).subscribe((response) => {
+      if (response.success) {
+        this.loadCities();
+      } else {
+        this.errorMessage = response.message;
+      }
+    });
+  }
+
+  filterCities(): void {
+    this.cityService
+      .filterCities(this.filterText)
+      .subscribe((filteredCities) => {
+        this.cities = filteredCities;
+      });
+  }
 }

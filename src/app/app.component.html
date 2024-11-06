@@ -10,5 +10,16 @@
   />
   <button (click)="addCity()">Add City</button>
 
+  <input
+    type="text"
+    [(ngModel)]="filterText"
+    placeholder="Filter cities"
+    (input)="filterCities()"
+  />
 
+  <ul>
+    <li *ngFor="let city of cities" (click)="deleteCity(city.name)" class="city-item">
+      {{ city.name }}
+    </li>
+  </ul>
 </div>

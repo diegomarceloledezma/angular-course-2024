@@ -18,13 +18,19 @@ export class CityService {
     this.loadCities();
   }
 
+  private sortCities(): void {
+    this.cities.sort((a, b) => a.name.localeCompare(b.name));
+  }
+
   private loadCities(): void {
     const storedCities = localStorage.getItem('cities');
     if (storedCities) {
       this.cities = JSON.parse(storedCities);
+      this.sortCities();
     } else {
       this.http.get<City[]>(this.citiesUrl).subscribe((data) => {
         this.cities = data;
+        this.sortCities();
         this.saveToLocalStorage();
       });
     }
@@ -48,8 +54,30 @@ export class CityService {
 
     const newCity = { name: cityName };
     this.cities.push(newCity);
+    this.sortCities();
     this.saveToLocalStorage();
     return of({ success: true, message: 'City added successfully' });
   }
 
+  deleteCity(
+    cityName: string
+  ): Observable<{ success: boolean; message: string }> {
+    const index = this.cities.findIndex(
+      (city) => city.name.toLowerCase() === cityName.toLowerCase()
+    );
+    if (index > -1) {
+      this.cities.splice(index, 1);
+      this.sortCities();
+      this.saveToLocalStorage();
+      return of({ success: true, message: 'City deleted successfully' });
+    }
+    return of({ success: false, message: 'City not found' });
+  }
+
+  filterCities(filter: string): Observable<City[]> {
+    const filteredCities = this.cities.filter((city) =>
+      city.name.toLowerCase().includes(filter.toLowerCase())
+    );
+    return of(filteredCities);
+  }
 }
